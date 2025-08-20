@@ -1,8 +1,5 @@
-loguru
-mkdocs
-pip
-python-dotenv
-ruff
-tqdm
-typer
--e .
+kagglehub==0.3.12
+loguru==0.7.3
+python-dotenv==1.1.1
+tqdm==4.67.1
+typer==0.16.1
