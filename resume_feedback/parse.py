@@ -22,7 +22,7 @@ def extract_text_from_pdf(pdf_path):
                         })
             except (PermissionError, FileNotFoundError, Exception):
                 continue
-    output_path = r"data\processed\extracted_text.json"
+    output_path = r"data\interim\extracted_text.json"
     with open(output_path, "w", encoding="utf-8") as f:
         json.dump(json_data, f, ensure_ascii=False, indent=4)
     print(f"Extracted text saved to {output_path}")
