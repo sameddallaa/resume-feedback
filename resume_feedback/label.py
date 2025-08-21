@@ -4,13 +4,14 @@ from tqdm import tqdm
 from dotenv import load_dotenv
 import os
 from threading import Thread
+import random
 
 load_dotenv()
 token = os.getenv("HF_TOKEN")
 def label_dataset(path):
     with open(path, "r") as f:
         dataset = [json.loads(line) for line in f]
-
+    random.shuffle(dataset)
     model_name = "mistralai/Mistral-7B-Instruct-v0.3"
     tokenizer = AutoTokenizer.from_pretrained(model_name, token=token)
     model = AutoModelForCausalLM.from_pretrained(model_name, token=token, device_map="auto")
