@@ -46,9 +46,6 @@ def clean_resume_text(text):
     return " ".join(words)
 
 def process_dataset(nlp, df):
-    """
-    Process the resume dataset by cleaning text and extracting skills.
-    """
     clean_resumes = [clean_resume_text(resume) for resume in df["text"]]
     df["Clean_Resume"] = clean_resumes
     df["skills"] = df["Clean_Resume"].str.lower().apply(lambda x: get_skills(x, nlp))
@@ -61,4 +58,4 @@ if __name__ == "__main__":
     df = pd.read_json(r"data\interim\extracted_text.json")
     nlp = load_spacy_model()
     df = process_dataset(nlp, df)
-    df.to_json(r"data\processed\processed_dataset.json", orient="records", lines=True, force_ascii=False)
+    df.to_json(r"data\interim\processed_dataset.jsonl", orient="records", lines=True, force_ascii=False)
