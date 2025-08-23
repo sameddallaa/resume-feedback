@@ -1,30 +1,27 @@
-from pathlib import Path
+from huggingface_hub import login
+import os
+from dotenv import load_dotenv
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
-from loguru import logger
-from tqdm import tqdm
-import typer
+load_dotenv()
+token = os.getenv("HF_TOKEN")
 
-from resume_feedback.config import MODELS_DIR, PROCESSED_DATA_DIR
+login(token=token)
+model_id = "sameddallaa/llama-3.2-1b-resume-finetuned"
+model = AutoModelForCausalLM.from_pretrained(model_id, device_map="auto")
+tokenizer = AutoTokenizer.from_pretrained(model_id)
 
-app = typer.Typer()
+input_text = ""
+inputs = tokenizer(input_text, return_tensors="pt")
 
+outputs = model.generate(
+    inputs["input_ids"],
+    max_length=200,
+    num_return_sequences=1,
+    temperature=0.7,
+    top_p=0.9,
+    do_sample=True
+)
 
-@app.command()
-def main(
-    # ---- REPLACE DEFAULT PATHS AS APPROPRIATE ----
-    features_path: Path = PROCESSED_DATA_DIR / "test_features.csv",
-    model_path: Path = MODELS_DIR / "model.pkl",
-    predictions_path: Path = PROCESSED_DATA_DIR / "test_predictions.csv",
-    # -----------------------------------------
-):
-    # ---- REPLACE THIS WITH YOUR OWN CODE ----
-    logger.info("Performing inference for model...")
-    for i in tqdm(range(10), total=10):
-        if i == 5:
-            logger.info("Something happened for iteration 5.")
-    logger.success("Inference complete.")
-    # -----------------------------------------
-
-
-if __name__ == "__main__":
-    app()
+generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+print(generated_text)
