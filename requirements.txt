@@ -8,6 +8,7 @@ PyPDF2==3.0.1
 python-dotenv==1.1.1
 Requests==2.32.5
 spacy==3.8.7
+torch @ https://download.pytorch.org/whl/cu124/torch-2.6.0%2Bcu124-cp311-cp311-linux_x86_64.whl
 tqdm==4.67.1
 transformers==4.55.2
 trl==0.21.0
