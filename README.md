@@ -81,6 +81,8 @@ python -m resume_feedback.generate --path path/to/resume.pdf
 
 ## Workflow
 
+![Project breakdown](https://raw.githubusercontent.com/sameddallaa/resume-feedback/refs/heads/main/reports/figures/resume-feedback.svg)
+---
 1. **Data Parsing**: The `parse.py` script extracts text from PDF resumes and converts it into a JSON dataset (`dataset.py`).
 2. **Data Cleaning**: The `extract.py` script pre-processes the dataset for modeling.
 3. **Data Labeling**: The `label.py` script uses Mistral-7B-Instruct-v0.3 to label the dataset with feedback and improvement suggestions.
